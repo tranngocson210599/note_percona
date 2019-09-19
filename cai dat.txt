@@ -1,3 +1,4 @@
+ubuntu 64 : 192.168.118.128
 
 wsrep_provider=/usr/lib/libgalera_smm.so
 wsrep_cluster_name=pxc-cluster
