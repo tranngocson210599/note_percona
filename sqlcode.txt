@@ -1,0 +1,942 @@
+CREATE TABLE `test_fn`.`audit` (
+  `modified_by_ip` varchar(39) NOT NULL,
+  `modified_by_user` varchar(50) NOT NULL,
+  `modified_when` bigint(14) NOT NULL,
+  `modified_from` bigint(14) NOT NULL,
+  `modified_to` bigint(14) NOT NULL,
+  `modified_why` varchar(250) NOT NULL,
+  `user_modified` varchar(50) NOT NULL,
+PRIMARY KEY `PRIMARY` (`modified_when`),
+UNIQUE KEY `modified_when` (`modified_when`)
+) ENGINE=InnoDB;
+CREATE TABLE `test_fn`.`cliviaautonumber` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(20) DEFAULT NULL,
+  `NextNumber` int(11) DEFAULT NULL,
+  `Remark` varchar(100) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE `test_fn`.`companyaddress` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Addr1` varchar(100) DEFAULT NULL,
+  `Addr2` varchar(100) DEFAULT NULL,
+  `Attn` varchar(100) DEFAULT NULL,
+  `Billing` bit(1) DEFAULT NULL,
+  `City` varchar(30) DEFAULT NULL,
+  `CompanyId` int(11) DEFAULT NULL,
+  `Country` varchar(20) DEFAULT NULL,
+  `LineNo` int(11) DEFAULT NULL,
+  `PostalCode` varchar(10) DEFAULT NULL,
+  `Province` varchar(20) DEFAULT NULL,
+  `Receiver` varchar(100) DEFAULT NULL,
+  `Remark` varchar(200) DEFAULT NULL,
+  `Shipping` bit(1) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`CompanyContact` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `CompanyId` int(11) DEFAULT NULL,
+  `Email` varchar(300) DEFAULT NULL,
+  `Fax` varchar(150) DEFAULT NULL,
+  `FirstName` varchar(150) NOT NULL,
+  `LastName` varchar(150) DEFAULT NULL,
+  `LineNo` int(11) DEFAULT NULL,
+  `Phone` varchar(150) DEFAULT NULL,
+  `Position` varchar(60) DEFAULT NULL,
+  `Remark` varchar(600) DEFAULT NULL,
+  `Status` bit(1) DEFAULT NULL,
+  `Title` varchar(30) DEFAULT NULL,
+  `IsActive` bit(1) DEFAULT NULL,
+  `IsBuyer` bit(1) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`companyinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `BusinessName` varchar(300) NOT NULL,
+  `Category` varchar(150) DEFAULT NULL,
+  `City` varchar(90) DEFAULT NULL,
+  `Country` varchar(60) DEFAULT NULL,
+  `CsrId` int(11) DEFAULT NULL,
+  `IsCustomer` bit(1) DEFAULT NULL,
+  `IsSupplier` bit(1) DEFAULT NULL,
+  `Province` varchar(60) DEFAULT NULL,
+  `RepId` int(11) DEFAULT NULL,
+  `SalesNote` text DEFAULT NULL,
+  `SpecialRequirement` text DEFAULT NULL,
+  `Status` int(11) DEFAULT NULL,
+  `WebSite` varchar(240) DEFAULT NULL,
+  `Discount` decimal(19,2) DEFAULT NULL,
+  `Term` varchar(150) DEFAULT NULL,
+  `UseWSP` bit(1) DEFAULT NULL,
+  `PricingInstructions` text DEFAULT NULL,
+  `RegularInstructions` text DEFAULT NULL,
+  `cardNum` varchar(60) DEFAULT NULL,
+  `expiryDate` varchar(60) DEFAULT NULL,
+  `gstExempt` varchar(60) DEFAULT NULL,
+  `pstExempt` varchar(60) DEFAULT NULL,
+  `taxCode` varchar(60) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`),
+UNIQUE KEY `UK_8o9miklm8ijsgn0mlbnxvkfvn` (`BusinessName`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`companyjournal` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `CompanyId` int(11) DEFAULT NULL,
+  `Contact` varchar(60) DEFAULT NULL,
+  `Content` text DEFAULT NULL,
+  `Date` date DEFAULT NULL,
+  `Event` varchar(90) DEFAULT NULL,
+  `Sales` varchar(60) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+	
+select `company`.`id` AS `id`,`company`.`BusinessName` AS `businessName`,`company`.`Category` AS `category`,`company`.`City` AS `city`,`company`.`Province` AS `province`,`company`.`Country` AS `country`,`company`.`WebSite` AS `website`,`company`.`IsCustomer` AS `isCustomer`,`company`.`IsSupplier` AS `isSupplier`,`company`.`Status` AS `status`,`company`.`RepId` AS `repId`,`company`.`CsrId` AS `csrId`,`company`.`Discount` AS `discount`,`company`.`Term` AS `term`,`company`.`UseWSP` AS `useWsp`,`rep`.`FIRSTNAME` AS `repFirstName`,`rep`.`LASTNAME` AS `repLastName`,`csr`.`FIRSTNAME` AS `csrFirstName`,`csr`.`LASTNAME` AS `csrLastName` from ((`test_fn`.`companyinfo` `company` left join `test_fn`.`employeeinfo` `rep` on((`company`.`RepId` = `rep`.`ID`))) left join `test_fn`.`employeeinfo` `csr` on((`company`.`CsrId` = `csr`.`ID`)))
+
+
+CREATE TABLE `test_fn`.`dbversion` (
+  `dbversion` decimal(5,1) NOT NULL,
+PRIMARY KEY `PRIMARY` (`dbversion`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`dictcity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(90) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`dictembroiderythread` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Blue` int(11) DEFAULT NULL,
+  `Code` varchar(15) DEFAULT NULL,
+  `Green` int(11) DEFAULT NULL,
+  `Name` varchar(60) DEFAULT NULL,
+  `Red` int(11) DEFAULT NULL,
+  `Available` bit(1) DEFAULT NULL,
+  `Colour` int(11) DEFAULT NULL,
+  `ColumnInChart` int(11) DEFAULT NULL,
+  `RowInChart` int(11) DEFAULT NULL,
+  `Used` bit(1) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`dictgarmentbrand` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `LineNumber` int(11) DEFAULT NULL,
+  `Name` varchar(150) DEFAULT NULL,
+  `SizeFields` varchar(300) DEFAULT NULL,
+  `SizeTitles` varchar(300) DEFAULT NULL,
+  `SizeTypeFields` varchar(765) DEFAULT NULL,
+  `SizeTypes` varchar(765) DEFAULT NULL,
+  `Categories` varchar(1500) DEFAULT NULL,
+  `LineNo` int(11) DEFAULT NULL,
+  `ShortName` varchar(150) DEFAULT NULL,
+  `HasInventory` bit(1) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`dictgarmentcategory` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Code` varchar(9) DEFAULT NULL,
+  `Name` varchar(150) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+  `BrandName` varchar(150) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`dictgarmentseason` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `brandId` int(11) DEFAULT NULL,
+  `Name` varchar(150) DEFAULT NULL,
+  `Categories` varchar(1500) DEFAULT NULL,
+  `SizeFields` varchar(300) DEFAULT NULL,
+  `SizeTitles` varchar(300) DEFAULT NULL,
+  `SizeTypeFields` varchar(765) DEFAULT NULL,
+  `SizeTypes` varchar(765) DEFAULT NULL,
+  `IsCurrent` bit(1) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`dictorderinsertableitem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ItemType` varchar(150) DEFAULT NULL,
+  `MenuId` varchar(150) DEFAULT NULL,
+  `Spec` varchar(150) DEFAULT NULL,
+  `Text` varchar(150) DEFAULT NULL,
+  `Detailable` bit(1) DEFAULT NULL,
+  `State` varchar(150) DEFAULT NULL,
+  `Seperator` bit(1) DEFAULT NULL,
+  `LineNumber` int(11) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`dictprovince` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Country` varchar(90) DEFAULT NULL,
+  `FullName` varchar(90) DEFAULT NULL,
+  `Name` varchar(6) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`dictsnp` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Code` varchar(30) DEFAULT NULL,
+  `LineNo` int(11) DEFAULT NULL,
+  `Name` varchar(150) DEFAULT NULL,
+  `Unit` varchar(30) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE `test_fn`.`employeeinfo` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `FIRSTNAME` varchar(765) DEFAULT NULL,
+  `LASTNAME` varchar(765) DEFAULT NULL,
+  `SEX` varchar(765) DEFAULT NULL,
+  `USERNAME` varchar(765) DEFAULT NULL,
+  `PASSWORD` varchar(765) DEFAULT NULL,
+  `Active` bit(1) DEFAULT NULL,
+  `IsCsr` bit(1) DEFAULT NULL,
+  `IsRep` bit(1) DEFAULT NULL,
+  `Remark` varchar(1500) DEFAULT NULL,
+  `Department` varchar(30) DEFAULT NULL,
+  `Address` varchar(300) DEFAULT NULL,
+  `City` varchar(90) DEFAULT NULL,
+  `Country` varchar(60) DEFAULT NULL,
+  `HireDate` date DEFAULT NULL,
+  `Phone` varchar(150) DEFAULT NULL,
+  `Position` varchar(60) DEFAULT NULL,
+  `PostalCode` varchar(30) DEFAULT NULL,
+  `Province` varchar(60) DEFAULT NULL,
+  `Email` varchar(150) DEFAULT NULL,
+  `IsActive` bit(1) DEFAULT NULL,
+  `Theme` varchar(90) DEFAULT NULL,
+  `InvoiceBy` varchar(60) DEFAULT NULL,
+  `EmployeePage` varchar(3) DEFAULT NULL,
+  `CustomerPage` varchar(3) DEFAULT NULL,
+  `OrderPage` varchar(3) DEFAULT NULL,
+  `ItemPage` varchar(3) DEFAULT NULL,
+  `DesignPage` varchar(3) DEFAULT NULL,
+  `InvoicePage` varchar(3) DEFAULT NULL,
+  `crmPremission` varchar(60) DEFAULT NULL,
+  `dstPremission` varchar(60) DEFAULT NULL,
+  `hrPremission` varchar(60) DEFAULT NULL,
+  `imPremission` varchar(60) DEFAULT NULL,
+  `ivPremission` varchar(60) DEFAULT NULL,
+  `omPremission` varchar(60) DEFAULT NULL,
+  `pduPremission` varchar(60) DEFAULT NULL,
+  `querryPremission` varchar(60) DEFAULT NULL,
+  `salPremission` varchar(60) DEFAULT NULL,
+  `spiPremission` varchar(60) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`ID`)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE `test_fn`.`employees` (
+  `empfullname` varchar(50) NOT NULL,
+  `tstamp` bigint(14) DEFAULT NULL,
+  `employee_passwd` varchar(25) NOT NULL,
+  `displayname` varchar(50) NOT NULL,
+  `email` varchar(75) NOT NULL,
+  `groups` varchar(50) NOT NULL,
+  `office` varchar(50) NOT NULL,
+  `admin` tinyint(1) NOT NULL,
+  `reports` tinyint(1) NOT NULL,
+  `time_admin` tinyint(1) NOT NULL,
+  `disabled` tinyint(1) NOT NULL,
+  `PIN` int(11) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`empfullname`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`garmentimage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Description` varchar(600) DEFAULT NULL,
+  `GarmentId` int(11) NOT NULL,
+  `ImageId` int(11) NOT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE `test_fn`.`garmentinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Category` varchar(90) DEFAULT NULL,
+  `ColourWay` varchar(750) DEFAULT NULL,
+  `Description` varchar(600) DEFAULT NULL,
+  `Feature` varchar(600) DEFAULT NULL,
+  `Season` varchar(300) DEFAULT NULL,
+  `SizeRange` varchar(450) DEFAULT NULL,
+  `StyleName` varchar(150) DEFAULT NULL,
+  `StyleNo` varchar(60) NOT NULL,
+  `Type` varchar(90) DEFAULT NULL,
+  `Remark` varchar(1500) DEFAULT NULL,
+  `Brand` varchar(90) DEFAULT NULL,
+  `PQ` int(11) DEFAULT NULL,
+  `QOH` int(11) DEFAULT NULL,
+  `RRP` double DEFAULT NULL,
+  `SQ` int(11) DEFAULT NULL,
+  `WSP` double DEFAULT NULL,
+  `Keyword` varchar(300) DEFAULT NULL,
+  `Used` bit(1) DEFAULT NULL,
+  `brandId` int(11) DEFAULT NULL,
+  `seasonId` int(11) DEFAULT NULL,
+  `ImageId` int(11) DEFAULT NULL,
+  `RRPCAD` double DEFAULT NULL,
+  `WSPCAD` double DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`),
+KEY `StyleNo` (`brandId`,`seasonId`,`StyleNo`)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE `test_fn`.`garmenttransdetail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Quantity` int(11) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+  `UpcId` int(11) NOT NULL,
+  `RowNumber` int(11) DEFAULT NULL,
+  `TransId` int(11) NOT NULL,
+  `RowNo` int(11) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE `test_fn`.`garmenttransinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `BatchNo` varchar(150) DEFAULT NULL,
+  `Description` varchar(765) DEFAULT NULL,
+  `Location` varchar(150) DEFAULT NULL,
+  `OperaterUserId` int(11) DEFAULT NULL,
+  `Packaging` varchar(150) DEFAULT NULL,
+  `Reference` varchar(150) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+  `TransNo` varchar(60) NOT NULL,
+  `Type` int(11) DEFAULT NULL,
+  `TransDate` date DEFAULT NULL,
+  `IsIn` bit(1) DEFAULT NULL,
+  `BrandId` varchar(60) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`),
+UNIQUE KEY `UK_j8of0oyvhe1n4g87nhx3aeq0j` (`TransNo`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`garmenttransjournal` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `OperaterUserId` int(11) DEFAULT NULL,
+  `Quantity` int(11) DEFAULT NULL,
+  `RefId` int(11) DEFAULT NULL,
+  `RefNo` varchar(765) DEFAULT NULL,
+  `TransDate` date DEFAULT NULL,
+  `Type` int(11) DEFAULT NULL,
+  `UpcId` int(11) NOT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`garmentupc` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `GarmentId` int(11) NOT NULL,
+  `Remark` varchar(750) DEFAULT NULL,
+  `Size` varchar(30) NOT NULL,
+  `UPCNo` varchar(36) DEFAULT NULL,
+  `Colour` varchar(150) NOT NULL,
+  `QtyInPO` int(11) DEFAULT NULL,
+  `QtyInSO` int(11) DEFAULT NULL,
+  `SQ` int(11) DEFAULT NULL,
+  `PQ` int(11) DEFAULT NULL,
+  `QOH` int(11) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`),
+KEY `GarmentId` (`GarmentId`,`Colour`,`Size`),
+KEY `UpcNo` (`UPCNo`)
+) ENGINE=InnoDB;
+
+select `gar`.`id` AS `garmentId`,`gar`.`StyleNo` AS `styleNo`,`gar`.`StyleName` AS `styleName`,`gar`.`brandId` AS `brandId`,`brand`.`Name` AS `brand`,`gar`.`seasonId` AS `seasonId`,`season`.`Name` AS `season`,`gar`.`Category` AS `category`,`upc`.`id` AS `upcId`,`upc`.`UPCNo` AS `upcNo`,`upc`.`Colour` AS `colour`,`upc`.`Size` AS `size`,`upc`.`QOH` AS `qoh`,`upc`.`SQ` AS `sq`,`upc`.`PQ` AS `pq`,`gar`.`RRP` AS `rrp`,`gar`.`WSP` AS `wsp`,`gar`.`RRPCAD` AS `rrpCad`,`gar`.`WSPCAD` AS `wspCad` from (((`test_fn`.`garmentinfo` `gar` join `test_fn`.`garmentupc` `upc` on((`gar`.`id` = `upc`.`GarmentId`))) left join `test_fn`.`dictgarmentbrand` `brand` on((`gar`.`brandId` = `brand`.`id`))) left join `test_fn`.`dictgarmentseason` `season` on((`gar`.`seasonId` = `season`.`id`)))
+
+select `gar`.`id` AS `garmentId`,`gar`.`StyleNo` AS `styleNo`,`gar`.`StyleName` AS `styleName`,`gar`.`brandId` AS `brandId`,`brand`.`Name` AS `brand`,`gar`.`seasonId` AS `seasonId`,`season`.`Name` AS `season`,`gar`.`Category` AS `category`,`gar`.`ColourWay` AS `colourway`,`gar`.`SizeRange` AS `sizeRange`,`gar`.`QOH` AS `qoh`,`gar`.`SQ` AS `sq`,`gar`.`PQ` AS `pq`,`gar`.`RRP` AS `rrp`,`gar`.`WSP` AS `wsp`,`gar`.`RRPCAD` AS `rrpCad`,`gar`.`WSPCAD` AS `wspCad`,`gar`.`Description` AS `description`,`gar`.`Feature` AS `feature`,`gar`.`Keyword` AS `keyword`,`gar`.`Used` AS `used`,`gar`.`Remark` AS `remark` from ((`test_fn`.`garmentinfo` `gar` left join `test_fn`.`dictgarmentbrand` `brand` on((`gar`.`brandId` = `brand`.`id`))) left join `test_fn`.`dictgarmentseason` `season` on((`gar`.`seasonId` = `season`.`id`)))
+
+CREATE TABLE `test_fn`.`gridcolumn` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `GRIDID` int(11) DEFAULT NULL,
+  `ORDERBY` varchar(9) DEFAULT NULL,
+  `Name` varchar(765) DEFAULT NULL,
+  `TITLE` varchar(765) DEFAULT NULL,
+  `WIDTH` int(11) DEFAULT NULL,
+  `Visible` bit(1) DEFAULT NULL,
+  `Editable` bit(1) DEFAULT NULL,
+  `Chooseable` bit(1) DEFAULT NULL,
+  `Sortable` bit(1) DEFAULT NULL,
+  `Filterable` varchar(900) DEFAULT NULL,
+  `DataType` varchar(765) DEFAULT NULL,
+  `TEXTALIGNFIXED` varchar(765) DEFAULT NULL,
+  `TEXTALIGN` varchar(765) DEFAULT NULL,
+  `DISPLAYFORMAT` varchar(765) DEFAULT NULL,
+  `EDITMASK` varchar(765) DEFAULT NULL,
+  `Editor` varchar(765) DEFAULT NULL,
+  `EditorDescriptor` varchar(135) DEFAULT NULL,
+  `Lockable` bit(1) DEFAULT NULL,
+  `Locked` bit(1) DEFAULT NULL,
+  `LineNo` int(11) DEFAULT NULL,
+  `ColEditable` bit(1) DEFAULT NULL,
+  `Choosable` bit(1) DEFAULT NULL,
+  `Hidden` bit(1) DEFAULT NULL,
+  `Template` varchar(765) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`ID`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`gridinfo` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `GridNo` varchar(12) NOT NULL,
+  `Name` varchar(150) NOT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+  `PageSize` int(11) DEFAULT NULL,
+  `Sortable` bit(1) DEFAULT NULL,
+  `Editable` bit(1) DEFAULT NULL,
+  `Filterable` bit(1) DEFAULT NULL,
+  `DaoName` varchar(150) DEFAULT NULL,
+  `SortDescriptor` varchar(765) DEFAULT NULL,
+  `ColumnMovable` bit(1) DEFAULT NULL,
+  `ColumnResizable` bit(1) DEFAULT NULL,
+  `BaseFilter` varchar(765) DEFAULT NULL,
+  `IsQuery` bit(1) DEFAULT NULL,
+  `dataUrl` varchar(150) NOT NULL,
+  `ShowLineNo` bit(1) DEFAULT NULL,
+  `Groupable` bit(1) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`ID`),
+UNIQUE KEY `GridNo_UNIQUE` (`GridNo`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`groups` (
+  `groupname` varchar(50) NOT NULL,
+  `groupid` int(10) NOT NULL AUTO_INCREMENT,
+  `officeid` int(10) NOT NULL,
+PRIMARY KEY `PRIMARY` (`groupid`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`info` (
+  `fullname` varchar(50) NOT NULL,
+  `inout` varchar(50) NOT NULL,
+  `timestamp` bigint(14) DEFAULT NULL,
+  `notes` varchar(250) DEFAULT NULL,
+  `ipaddress` varchar(39) NOT NULL,
+KEY `fullname` (`fullname`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`info` (
+  `fullname` varchar(50) NOT NULL,
+  `inout` varchar(50) NOT NULL,
+  `timestamp` bigint(14) DEFAULT NULL,
+  `notes` varchar(250) DEFAULT NULL,
+  `ipaddress` varchar(39) NOT NULL,
+KEY `fullname` (`fullname`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`invoiceitem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Amount` decimal(19,2) DEFAULT NULL,
+  `CustomerPO` varchar(150) DEFAULT NULL,
+  `Description` varchar(765) DEFAULT NULL,
+  `InvoiceId` int(11) DEFAULT NULL,
+  `LineNo` int(11) DEFAULT NULL,
+  `OrderBillingItemId` int(11) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
+  `OrderNumber` varchar(60) NOT NULL,
+  `Price` decimal(19,2) DEFAULT NULL,
+  `Quantity` decimal(19,2) DEFAULT NULL,
+  `SnpId` int(11) DEFAULT NULL,
+  `TaxCode` varchar(30) DEFAULT NULL,
+  `Unit` varchar(60) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`),
+UNIQUE KEY `UK_lunprreo64xcx7iy5a768yfyh` (`OrderNumber`)
+) ENGINE=InnoDB;CREATE TABLE `test_fn`.`libembdesigncolourway` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `BackGroundColour` varchar(30) DEFAULT NULL,
+  `LibEmbDesignId` int(11) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+  `RunningSteps` varchar(765) DEFAULT NULL,
+  `Thumbnail` longblob CHARACTER SET <UNKNOWN> DEFAULT NULL,
+  `Threads` varchar(300) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`libembdesigncolourway` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `BackGroundColour` varchar(30) DEFAULT NULL,
+  `LibEmbDesignId` int(11) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+  `RunningSteps` varchar(765) DEFAULT NULL,
+  `Thumbnail` longblob CHARACTER SET <UNKNOWN> DEFAULT NULL,
+  `Threads` varchar(300) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+select `emb`.`id` AS `id`,`emb`.`CompanyId` AS `CompanyId`,`emb`.`Description` AS `Description`,`emb`.`DesignNumber` AS `DesignNumber`,`emb`.`FileName` AS `FileName`,`emb`.`FilePath` AS `FilePath`,`emb`.`Height` AS `Height`,`emb`.`OriginalFileName` AS `OriginalFileName`,`emb`.`Remark` AS `Remark`,`emb`.`Size` AS `Size`,`emb`.`StepCount` AS `StepCount`,`emb`.`thumbnail` AS `thumbnail`,`emb`.`UploadAt` AS `UploadAt`,`emb`.`UploadBy` AS `UploadBy`,`emb`.`Width` AS `Width`,`emb`.`StitchCount` AS `StitchCount`,`com`.`BusinessName` AS `CompanyName` from (`test_fn`.`libembdesigninfo` `emb` left join `test_fn`.`companyinfo` `com` on((`emb`.`CompanyId` = `com`.`id`)))
+
+CREATE TABLE `test_fn`.`libembdesignsample` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Colourway` varchar(765) DEFAULT NULL,
+  `FileName` varchar(765) DEFAULT NULL,
+  `FilePath` varchar(765) DEFAULT NULL,
+  `LibEmbDesignId` int(11) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+  `RunningSteps` varchar(765) DEFAULT NULL,
+  `Thumbnail` longblob CHARACTER SET <UNKNOWN> DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+select `emb`.`id` AS `id`,`emb`.`CompanyId` AS `CompanyId`,`emb`.`Description` AS `Description`,`emb`.`DesignNumber` AS `DesignNumber`,`emb`.`FileName` AS `FileName`,`emb`.`FilePath` AS `FilePath`,`emb`.`Height` AS `Height`,`emb`.`OriginalFileName` AS `OriginalFileName`,`emb`.`Remark` AS `Remark`,`emb`.`Size` AS `Size`,`emb`.`StepCount` AS `StepCount`,`emb`.`thumbnail` AS `thumbnail`,`emb`.`UploadAt` AS `UploadAt`,`emb`.`UploadBy` AS `UploadBy`,`emb`.`Width` AS `Width`,`emb`.`StitchCount` AS `StitchCount`,`com`.`BusinessName` AS `CompanyName` from (`test_fn`.`libembdesigninfo` `emb` left join `test_fn`.`companyinfo` `com` on((`emb`.`CompanyId` = `com`.`id`)))
+
+CREATE TABLE `test_fn`.`libfile` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Description` varchar(765) DEFAULT NULL,
+  `OriginalFileName` varchar(765) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+  `UploadAt` datetime DEFAULT NULL,
+  `UploadBy` varchar(150) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE `test_fn`.`libimage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Description` varchar(765) DEFAULT NULL,
+  `FileName` varchar(765) DEFAULT NULL,
+  `FilePath` varchar(765) DEFAULT NULL,
+  `OriginalFileName` varchar(765) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+  `Size` bigint(20) DEFAULT NULL,
+  `thumbnail` longblob CHARACTER SET <UNKNOWN> DEFAULT NULL,
+  `UploadAt` datetime DEFAULT NULL,
+  `UploadBy` varchar(765) DEFAULT NULL,
+  `Used` varchar(765) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`libimage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Description` varchar(765) DEFAULT NULL,
+  `FileName` varchar(765) DEFAULT NULL,
+  `FilePath` varchar(765) DEFAULT NULL,
+  `OriginalFileName` varchar(765) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+  `Size` bigint(20) DEFAULT NULL,
+  `thumbnail` longblob CHARACTER SET <UNKNOWN> DEFAULT NULL,
+  `UploadAt` datetime DEFAULT NULL,
+  `UploadBy` varchar(765) DEFAULT NULL,
+  `Used` varchar(765) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`offices` (
+  `officename` varchar(50) NOT NULL,
+  `officeid` int(10) NOT NULL AUTO_INCREMENT,
+PRIMARY KEY `PRIMARY` (`officeid`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`orderaddress` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Address` varchar(300) DEFAULT NULL,
+  `Billing` bit(1) DEFAULT NULL,
+  `City` varchar(90) DEFAULT NULL,
+  `Country` varchar(60) DEFAULT NULL,
+  `LineNo` int(11) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
+  `OrderItemId` int(11) DEFAULT NULL,
+  `PostalCode` varchar(30) DEFAULT NULL,
+  `Province` varchar(60) DEFAULT NULL,
+  `Remark` varchar(600) DEFAULT NULL,
+  `Shipping` bit(1) DEFAULT NULL,
+  `companyAddrId` int(11) DEFAULT NULL,
+  `Addr1` varchar(300) DEFAULT NULL,
+  `Addr2` varchar(300) DEFAULT NULL,
+  `Attn` varchar(300) DEFAULT NULL,
+  `Receiver` varchar(300) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`orderbalance` (
+  `id` int(11) NOT NULL,
+  `Balance` decimal(20,2) DEFAULT NULL,
+  `Pst` decimal(20,4) DEFAULT NULL,
+  `Gst` decimal(20,4) DEFAULT NULL,
+  `Date` datetime DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE `test_fn`.`orderbillitem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Description` varchar(765) DEFAULT NULL,
+  `FinishAmt` decimal(19,2) DEFAULT NULL,
+  `FinishQty` decimal(19,2) DEFAULT NULL,
+  `InvoiceAmt` decimal(19,2) DEFAULT NULL,
+  `InvoicePrice` decimal(19,2) DEFAULT NULL,
+  `InvoiceQty` decimal(19,2) DEFAULT NULL,
+  `ItemNumber` varchar(60) DEFAULT NULL,
+  `LineNo` int(11) DEFAULT NULL,
+  `OrderAmt` decimal(19,2) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
+  `OrderItemId` int(11) DEFAULT NULL,
+  `OrderPrice` decimal(19,2) DEFAULT NULL,
+  `OrderQty` decimal(19,2) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+  `snpId` int(11) DEFAULT NULL,
+  `Unit` varchar(60) DEFAULT NULL,
+  `BillingKey` varchar(300) DEFAULT NULL,
+  `itemTypeId` int(11) DEFAULT NULL,
+  `Dsicount` decimal(19,4) DEFAULT NULL,
+  `ListPrice` decimal(19,2) DEFAULT NULL,
+  `ServiceType` varchar(60) DEFAULT NULL,
+  `ItemID` int(11) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`),
+KEY `billingkey` (`OrderId`,`BillingKey`)
+) ENGINE=InnoDB;
+
+select `bill`.`id` AS `rowId`,`bill`.`Description` AS `description`,`bill`.`FinishAmt` AS `finishAmt`,`bill`.`FinishQty` AS `finishQty`,`bill`.`InvoiceAmt` AS `invoiceAmt`,`bill`.`InvoicePrice` AS `invoicePrice`,`bill`.`InvoiceQty` AS `invoiceQty`,`bill`.`ItemNumber` AS `itemNumber`,`bill`.`LineNo` AS `lineNo`,`bill`.`OrderAmt` AS `orderAmt`,`bill`.`OrderItemId` AS `orderItemId`,`bill`.`OrderPrice` AS `orderPrice`,`bill`.`OrderQty` AS `orderQty`,`bill`.`Remark` AS `remark`,`bill`.`snpId` AS `snpId`,`bill`.`Unit` AS `unit`,`bill`.`BillingKey` AS `billingKey`,`bill`.`itemTypeId` AS `itemTypeId`,`bill`.`Dsicount` AS `dsicount`,`bill`.`ListPrice` AS `listPrice`,`order`.`orderId` AS `orderId`,`order`.`buyer` AS `buyer`,`order`.`creatorId` AS `creatorId`,`order`.`customerId` AS `customerId`,`order`.`customerPO` AS `customerPO`,`order`.`finishBy` AS `finishBy`,`order`.`finishDate` AS `finishDate`,`order`.`invoiceBy` AS `invoiceBy`,`order`.`invoiceDate` AS `invoiceDate`,`order`.`orderDate` AS `orderDate`,`order`.`orderName` AS `orderName`,`order`.`orderNumber` AS `orderNumber`,`order`.`orderStatus` AS `orderStatus`,`order`.`orderTime` AS `orderTime`,`order`.`repId` AS `repId`,`order`.`requireDate` AS `requireDate`,`order`.`requireTime` AS `requireTime`,`order`.`businessName` AS `businessName`,`order`.`creator` AS `creator`,`order`.`rep` AS `rep`,`order`.`country` AS `country`,`snp`.`Name` AS `snp` from ((`test_fn`.`orderbillitem` `bill` join `test_fn`.`orderinfoview` `order` on((`bill`.`OrderId` = `order`.`orderId`))) left join `test_fn`.`dictsnp` `snp` on((`bill`.`snpId` = `snp`.`id`)))
+
+CREATE TABLE `test_fn`.`ordercontact` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Email` varchar(300) DEFAULT NULL,
+  `FirstName` varchar(150) NOT NULL,
+  `LastName` varchar(150) DEFAULT NULL,
+  `LineNo` int(11) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
+  `OrderItemId` int(11) DEFAULT NULL,
+  `Phone` varchar(150) DEFAULT NULL,
+  `Position` varchar(60) DEFAULT NULL,
+  `Remark` varchar(600) DEFAULT NULL,
+  `Title` varchar(30) DEFAULT NULL,
+  `IsBuyer` bit(1) DEFAULT NULL,
+  `companyContactId` int(11) DEFAULT NULL,
+  `Fax` varchar(60) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`orderdesign` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `LineNo` int(11) DEFAULT NULL,
+  `OrderDesignId` int(11) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
+  `OrderItemId` int(11) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`orderemail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `EmailId` int(11) DEFAULT NULL,
+  `LineNo` int(11) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
+  `OrderItemId` int(11) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`orderembdesign` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `LibEmbDesignId` int(11) DEFAULT NULL,
+  `LineNumber` int(11) DEFAULT NULL,
+  `OrderEmbDesignId` int(11) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
+  `OrderItemId` int(11) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`orderembdesigncolourway` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `libEmbDesignColourwayId` int(11) DEFAULT NULL,
+  `LineNumber` int(11) DEFAULT NULL,
+  `OrderEmbDesignId` int(11) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
+  `OrderItemId` int(11) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+  `BackgroundColour` varchar(765) DEFAULT NULL,
+  `RunningSteps` varchar(765) DEFAULT NULL,
+  `Threads` varchar(300) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`orderfile` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Description` varchar(765) DEFAULT NULL,
+  `FileName` varchar(765) DEFAULT NULL,
+  `LineNo` int(11) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
+  `OrderItemId` int(11) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+  `UploadAt` datetime DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`orderimage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ImageId` int(11) DEFAULT NULL,
+  `LineNo` int(11) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
+  `OrderItemId` int(11) DEFAULT NULL,
+  `Remark` varchar(765) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`orderinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Buyer` varchar(150) DEFAULT NULL,
+  `CreateBy` int(11) DEFAULT NULL,
+  `CustomerId` int(11) DEFAULT NULL,
+  `CustomerPO` varchar(150) DEFAULT NULL,
+  `FinishBy` int(11) DEFAULT NULL,
+  `FinishDate` date DEFAULT NULL,
+  `InvoiceBy` int(11) DEFAULT NULL,
+  `InvoiceDate` date DEFAULT NULL,
+  `OrderDate` date DEFAULT NULL,
+  `OrderName` varchar(300) DEFAULT NULL,
+  `OrderNumber` varchar(60) NOT NULL,
+  `OrderStatus` int(11) DEFAULT NULL,
+  `OrderTime` time DEFAULT NULL,
+  `RepId` int(11) DEFAULT NULL,
+  `RequireDate` date DEFAULT NULL,
+  `RequireTime` time DEFAULT NULL,
+  `Remark` varchar(3000) DEFAULT NULL,
+  `CancelDate` date DEFAULT NULL,
+  `Note` varchar(6000) DEFAULT NULL,
+  `Term` varchar(150) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`),
+UNIQUE KEY `UK_a3tl4mam5q52fvq0ybh77mnxj` (`OrderNumber`)
+) ENGINE=InnoDB;
+
+
+select `info`.`id` AS `orderId`,`info`.`Buyer` AS `buyer`,`info`.`CreateBy` AS `creatorId`,`info`.`CustomerId` AS `customerId`,`info`.`CustomerPO` AS `customerPO`,`info`.`FinishBy` AS `finishBy`,`info`.`FinishDate` AS `finishDate`,`info`.`InvoiceBy` AS `invoiceBy`,`info`.`InvoiceDate` AS `invoiceDate`,`info`.`OrderDate` AS `orderDate`,`info`.`OrderName` AS `orderName`,`info`.`OrderNumber` AS `orderNumber`,`info`.`OrderStatus` AS `orderStatus`,`info`.`OrderTime` AS `orderTime`,`info`.`RepId` AS `repId`,`info`.`RequireDate` AS `requireDate`,`info`.`CancelDate` AS `cancelDate`,`info`.`RequireTime` AS `requireTime`,`info`.`Remark` AS `remark`,`info`.`Note` AS `note`,`info`.`Term` AS `term`,`com`.`BusinessName` AS `businessName`,`com`.`Country` AS `country`,concat(`crt`.`FIRSTNAME`,\' \',`crt`.`LASTNAME`) AS `creator`,concat(`rep`.`FIRSTNAME`,\' \',`rep`.`LASTNAME`) AS `rep` from (((`test_fn`.`orderinfo` `info` left join `test_fn`.`companyinfo` `com` on((`info`.`CustomerId` = `com`.`id`))) left join `test_fn`.`employeeinfo` `rep` on((`info`.`RepId` = `rep`.`ID`))) left join `test_fn`.`employeeinfo` `crt` on((`info`.`CreateBy` = `crt`.`ID`)))
+
+CREATE TABLE `test_fn`.`orderitem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `LineNo` int(11) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
+  `Spec` varchar(765) DEFAULT NULL,
+  `SpecDetail` varchar(765) DEFAULT NULL,
+  `Title` varchar(150) DEFAULT NULL,
+  `Type` varchar(60) DEFAULT NULL,
+  `IsBillable` bit(1) DEFAULT NULL,
+  `snpId` int(11) DEFAULT NULL,
+  `TypeId` int(11) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE `test_fn`.`orderlineitem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Type` varchar(60) DEFAULT NULL,
+  `BrandId` int(11) DEFAULT NULL,
+  `Colour` varchar(150) DEFAULT NULL,
+  `Description` varchar(765) DEFAULT NULL,
+  `LineNo` int(11) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
+  `OrderItemId` int(11) DEFAULT NULL,
+  `Qty00` int(11) DEFAULT NULL,
+  `Qty01` int(11) DEFAULT NULL,
+  `Qty02` int(11) DEFAULT NULL,
+  `Qty03` int(11) DEFAULT NULL,
+  `Qty04` int(11) DEFAULT NULL,
+  `Qty05` int(11) DEFAULT NULL,
+  `Qty06` int(11) DEFAULT NULL,
+  `Qty07` int(11) DEFAULT NULL,
+  `Qty08` int(11) DEFAULT NULL,
+  `Qty09` int(11) DEFAULT NULL,
+  `Qty10` int(11) DEFAULT NULL,
+  `Qty11` int(11) DEFAULT NULL,
+  `Qty12` int(11) DEFAULT NULL,
+  `Qty13` int(11) DEFAULT NULL,
+  `Qty14` int(11) DEFAULT NULL,
+  `Quantity` int(11) DEFAULT NULL,
+  `Remark` varchar(150) DEFAULT NULL,
+  `SeasonId` int(11) DEFAULT NULL,
+  `Size` varchar(60) DEFAULT NULL,
+  `StyleNo` varchar(60) DEFAULT NULL,
+  `GarmentId` int(11) DEFAULT NULL,
+  `Qty15` int(11) DEFAULT NULL,
+  `Qty16` int(11) DEFAULT NULL,
+  `Qty17` int(11) DEFAULT NULL,
+  `Qty18` int(11) DEFAULT NULL,
+  `Qty19` int(11) DEFAULT NULL,
+  `Qty20` int(11) DEFAULT NULL,
+  `Qty21` int(11) DEFAULT NULL,
+  `Others` varchar(300) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE `test_fn`.`orderserviceemb` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ColourCount` int(11) DEFAULT NULL,
+  `colourValue` varchar(390) DEFAULT NULL,
+  `designId` int(11) DEFAULT NULL,
+  `DesignName` varchar(150) DEFAULT NULL,
+  `DesignNo` varchar(150) DEFAULT NULL,
+  `StitchCount` int(11) DEFAULT NULL,
+  `LineItemId` int(11) DEFAULT NULL,
+  `LineNo` int(11) DEFAULT NULL,
+  `Location` varchar(300) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
+  `OrderItemId` int(11) DEFAULT NULL,
+  `Remark` varchar(150) DEFAULT NULL,
+  `RunningStep` varchar(900) DEFAULT NULL,
+  `ThreadCode` varchar(300) DEFAULT NULL,
+  `ServiceType` varchar(60) DEFAULT NULL,
+  `ListPrice` decimal(19,2) DEFAULT NULL,
+  `Dsicount` decimal(19,4) DEFAULT NULL,
+  `OrderPrice` decimal(19,2) DEFAULT NULL,
+  `Unit` varchar(60) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`orderupc` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `CanceledQty` int(11) DEFAULT NULL,
+  `DilveredQty` int(11) DEFAULT NULL,
+  `OrderId` int(11) DEFAULT NULL,
+  `OrderQty` int(11) DEFAULT NULL,
+  `RemainQty` int(11) DEFAULT NULL,
+  `upcId` int(11) DEFAULT NULL,
+  `Discount` decimal(19,2) DEFAULT NULL,
+  `ListPrice` decimal(19,2) DEFAULT NULL,
+  `OrderPrice` decimal(19,2) DEFAULT NULL,
+  `billItemId` int(11) DEFAULT NULL,
+  `BillingKey` varchar(60) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+select `upc`.`id` AS `id`,`upc`.`CanceledQty` AS `canceledQty`,`upc`.`DilveredQty` AS `dilveredQty`,`upc`.`OrderId` AS `orderId`,`upc`.`OrderQty` AS `orderQty`,`upc`.`RemainQty` AS `remainQty`,`upc`.`upcId` AS `upcId`,`upc`.`BillingKey` AS `billingKey`,`gar`.`garmentId` AS `garmentId`,`gar`.`styleNo` AS `styleNo`,`gar`.`styleName` AS `styleName`,`gar`.`brandId` AS `brandId`,`gar`.`brand` AS `brand`,`gar`.`seasonId` AS `seasonId`,`gar`.`season` AS `season`,`gar`.`category` AS `category`,`gar`.`upcNo` AS `upcNo`,`gar`.`colour` AS `colour`,`gar`.`size` AS `size`,`gar`.`qoh` AS `qoh`,`gar`.`rrp` AS `rrp`,`gar`.`wsp` AS `wsp`,`gar`.`rrpCad` AS `rrpCad`,`gar`.`wspCad` AS `wspCad` from (`test_fn`.`orderupc` `upc` left join `test_fn`.`garmentwithdetail` `gar` on((`upc`.`upcId` = `gar`.`upcId`)))
+
+CREATE TABLE `test_fn`.`products` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ProductID` int(11) DEFAULT NULL,
+  `ProductName` varchar(20) DEFAULT NULL,
+  `QuantityPerUnit` varchar(20) DEFAULT NULL,
+  `UnitPrice` varchar(20) DEFAULT NULL,
+  `UnitsInStock` varchar(20) DEFAULT NULL,
+  `Discontinued` varchar(20) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`shipinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `CustomerName` varchar(50) DEFAULT NULL,
+  `Package` varchar(20) DEFAULT NULL,
+  `PackageNum` varchar(50) DEFAULT NULL,
+  `CustomerPO` varchar(45) DEFAULT NULL,
+  `Location` varchar(45) DEFAULT NULL,
+  `Time` time DEFAULT NULL,
+  `Courier` varchar(45) DEFAULT NULL,
+  `Waybill` varchar(45) DEFAULT NULL,
+  `Quantity` varchar(45) DEFAULT NULL,
+  `Type` varchar(45) DEFAULT NULL,
+  `Amount` int(11) DEFAULT NULL,
+  `ReceiveBy` varchar(45) DEFAULT NULL,
+  `Weight` varchar(45) DEFAULT NULL,
+  `Size` varchar(45) DEFAULT NULL,
+  `Memo` varchar(200) DEFAULT NULL,
+  `CreateBy` int(11) DEFAULT NULL,
+  `Date` datetime DEFAULT NULL,
+  `PackType` varchar(20) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`shipInItem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `CustomerPO` varchar(45) DEFAULT NULL,
+  `Description` varchar(225) DEFAULT NULL,
+  `OrderNumber` varchar(45) DEFAULT NULL,
+  `Quantity` int(11) DEFAULT NULL,
+  `ItemNumber` varchar(45) DEFAULT NULL,
+  `PackageNumber` varchar(45) DEFAULT NULL,
+  `StyleNo` varchar(45) DEFAULT NULL,
+  `Image` varchar(100) DEFAULT NULL,
+  `CreateBy` int(11) DEFAULT NULL,
+  `Date` datetime DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`shipItem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `CustomerPO` varchar(45) DEFAULT NULL,
+  `Description` varchar(225) DEFAULT NULL,
+  `OrderNumber` varchar(45) DEFAULT NULL,
+  `Quantity` int(11) DEFAULT NULL,
+  `ItemNumber` varchar(45) DEFAULT NULL,
+  `PackageNumber` varchar(45) DEFAULT NULL,
+  `StyleNo` varchar(45) DEFAULT NULL,
+  `Image` varchar(100) DEFAULT NULL,
+  `CreateBy` int(11) DEFAULT NULL,
+  `ShipOut` varchar(10) DEFAULT NULL,
+  `Date` datetime DEFAULT NULL,
+  `Type` varchar(20) DEFAULT NULL,
+  `PackType` varchar(20) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`shipOutInfo` (
+  `id` int(11) NOT NULL,
+  `CustomerName` varchar(50) DEFAULT NULL,
+  `Package` varchar(20) DEFAULT NULL,
+  `PackageNum` varchar(50) DEFAULT NULL,
+  `CustomerPO` varchar(45) DEFAULT NULL,
+  `Location` varchar(45) DEFAULT NULL,
+  `Time` datetime DEFAULT NULL,
+  `Courier` varchar(45) DEFAULT NULL,
+  `Waybill` varchar(45) DEFAULT NULL,
+  `Quantity` varchar(45) DEFAULT NULL,
+  `Type` varchar(45) DEFAULT NULL,
+  `Amount` int(11) DEFAULT NULL,
+  `ReceiveBy` varchar(45) DEFAULT NULL,
+  `Weight` varchar(45) DEFAULT NULL,
+  `Size` varchar(45) DEFAULT NULL,
+  `Memo` varchar(200) DEFAULT NULL,
+  `CreateBy` int(11) DEFAULT NULL,
+  `Date` datetime DEFAULT NULL,
+  `PackType` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE `test_fn`.`shipOutItem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `CustomerPO` varchar(45) DEFAULT NULL,
+  `Description` varchar(225) DEFAULT NULL,
+  `OrderNumber` varchar(45) DEFAULT NULL,
+  `CustomerId` varchar(45) DEFAULT NULL,
+  `Quantity` int(11) DEFAULT NULL,
+  `ItemNumber` varchar(45) DEFAULT NULL,
+  `PackageNumber` varchar(45) DEFAULT NULL,
+  `StyleNo` varchar(45) DEFAULT NULL,
+  `Image` varchar(100) DEFAULT NULL,
+  `CreateBy` int(11) DEFAULT NULL,
+  `Date` datetime DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE `test_fn`.`transwithdetail` (
+  `transId` tinyint(4) NOT NULL,
+  `transNo` tinyint(4) NOT NULL,
+  `brandId` tinyint(4) NOT NULL,
+  `type` tinyint(4) NOT NULL,
+  `batchNo` tinyint(4) NOT NULL,
+  `reference` tinyint(4) NOT NULL,
+  `transDate` tinyint(4) NOT NULL,
+  `userId` tinyint(4) NOT NULL,
+  `isIn` tinyint(4) NOT NULL,
+  `itemId` tinyint(4) NOT NULL,
+  `upcId` tinyint(4) NOT NULL,
+  `rowNumber` tinyint(4) NOT NULL,
+  `Quantity` tinyint(4) NOT NULL
+) ENGINE=MyISAM;
+
+CREATE TABLE `test_fn`.`userinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Password` varchar(60) DEFAULT NULL,
+  `Username` varchar(60) DEFAULT NULL,
+PRIMARY KEY `PRIMARY` (`id`)
+) ENGINE=InnoDB;
+

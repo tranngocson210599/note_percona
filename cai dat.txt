@@ -1,0 +1,19 @@
+
+wsrep_provider=/usr/lib/libgalera_smm.so
+wsrep_cluster_name=pxc-cluster
+wsrep_cluster_address=gcomm://192.168.118.128,192.168.118.131,192.168.118.132
+wsrep_node_name=pxc3
+wsrep_node_address=192.168.118.132
+wsrep_sst_method=xtrabackup-v2
+wsrep_sst_auth=sstuser:password
+pxc_strict_mode=ENFORCING
+binlog_format=ROW
+default_storage_engine=InnoDB
+innodb_autoinc_lock_mode=2
+
+
+
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'latoi.net';
+
+GRANT RELOAD, LOCK TABLES, PROCESS, REPLICATION CLIENT ON *.* TO
+'user'@'localhost';
