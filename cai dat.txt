@@ -10,7 +10,8 @@ wsrep_sst_auth=sstuser:password
 pxc_strict_mode=ENFORCING
 binlog_format=ROW
 default_storage_engine=InnoDB
-innodb_autoinc_lock_mode=2
+innodb_autoinc_lock_mode=2
+
 
 
 
@@ -18,3 +19,6 @@ CREATE USER 'user'@'localhost' IDENTIFIED BY 'latoi.net';
 
 GRANT RELOAD, LOCK TABLES, PROCESS, REPLICATION CLIENT ON *.* TO
 'user'@'localhost';
+
+
+http://pages.cs.wisc.edu/~bart/537/valgrind.html#:~:text=Valgrind%20includes%20an%20option%20to,it%20will%20give%20more%20information.
