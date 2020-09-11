@@ -51,7 +51,7 @@ innodb_autoinc_lock_mode=2
 
 
 EOF
-find -type f -name “*.err”
+find -type f -name â€œ*.errâ€
 vim /var/lib/mysql/
 
 cat >>/etc/mysql/my.cnf<<EOF
@@ -207,7 +207,7 @@ SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 
 
 
-
+https://sourceforge.net/projects/readproc/
 
 
 
